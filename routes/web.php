@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\MaintainController;
+use App\Http\Controllers\maintenanceHistoryController;
 use App\Http\Controllers\OilController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
@@ -43,13 +44,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/drivers', [DriverController::class, 'index'])->name('driver.show');
         Route::delete('/{id}', [ReportController::class, 'destroy'])->name('report.destroy');
     });
-});
 
-Route::middleware('auth')->group(function () {
     Route::prefix('oil')->group(function () {
         Route::get('/', [OilController::class, 'index'])->name('oil.index');
         Route::get('/change-oil', [OilController::class, 'create'])->name('oil.create');
     });
+
+    Route::get('/maintenance-history', [maintenanceHistoryController::class, 'index'])->name('mainHistory.show');
 });
 
 Route::middleware('auth')->group(function () {

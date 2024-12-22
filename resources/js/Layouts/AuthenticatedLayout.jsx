@@ -18,6 +18,10 @@ export default function Authenticated({ user, header, children }) {
     {
       href: 'oil.index',
       text: 'เปลี่ยนน้ำมัน'
+    },
+    {
+      href: 'mainHistory.show',
+      text: 'ประวัติซ่อมบำรุง'
     }
   ];
 

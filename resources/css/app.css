@@ -3,8 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+  table {
+    @apply w-full;
+  }
   th {
-    @apply border p-3;
+    @apply border p-3 text-lg;
   }
 
   td {

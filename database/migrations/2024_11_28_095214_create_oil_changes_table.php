@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('oil_type_id');
             $table->string('license_plate');
             $table->integer('lites');
+            $table->string('note');
             $table->timestamps();
         });
     }

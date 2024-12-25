@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class maintenanceHistoryController extends Controller
+class MaintenanceHistoryController extends Controller
 {
     /**
      * Display a listing of the resource.

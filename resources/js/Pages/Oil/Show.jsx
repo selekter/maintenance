@@ -1,35 +1,34 @@
-import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Link } from '@inertiajs/react'
-import React from 'react'
+import Authenticated from "@/Layouts/AuthenticatedLayout";
+import { Link } from "@inertiajs/react";
+import React from "react";
 
 export default function OilShow({ auth }) {
   const changeOil = [
     {
-      changeDate: '28/11/2567',
-      list: 'ซื้อน้ำมันเครื่อง',
-      licensePlate: '-',
+      changeDate: "28/11/2567",
+      list: "ซื้อน้ำมันเครื่อง",
+      licensePlate: "-",
       quantity: 14,
       remaining: 24,
-      note: '-'
-
+      note: "-",
     },
     {
-      changeDate: '28/11/2567',
-      list: 'เปลี่ยนน้ำมันเครื่อง',
-      licensePlate: '70-7210',
+      changeDate: "28/11/2567",
+      list: "เปลี่ยนน้ำมันเครื่อง",
+      licensePlate: "70-7210",
       quantity: 18,
       remaining: 6,
-      note: '-'
+      note: "-",
     },
     {
-      changeDate: '2/12/67',
-      list: 'ซื้อน้ำมันเครื่อง',
-      licensePlate: '-',
+      changeDate: "2/12/67",
+      list: "ซื้อน้ำมันเครื่อง",
+      licensePlate: "-",
       quantity: 14,
       remaining: 20,
-      note: '-'
-    }
-  ]
+      note: "-",
+    },
+  ];
   return (
     <Authenticated user={auth.user} header="เปลี่ยนน้ำมัน">
       <div className="space-y-2">
@@ -47,8 +46,8 @@ export default function OilShow({ auth }) {
             กลับไปหน้าแจ้งซ่อม
           </Link>
         </div>
-        <table className='table-auto w-full shadow'>
-          <thead className='bg-green-400'>
+        <table className="table-auto w-full shadow">
+          <thead className="bg-blue-400">
             <tr>
               <th>วันที่เปลี่ยน</th>
               <th>รายการ</th>
@@ -73,5 +72,5 @@ export default function OilShow({ auth }) {
         </table>
       </div>
     </Authenticated>
-  )
+  );
 }

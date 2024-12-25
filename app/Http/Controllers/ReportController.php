@@ -32,11 +32,29 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        $report = new ReportRepair;
-        $report->license_plate_id = $request->plate;
-        $report->repair = $request->report;
+        $data = $request->validate([
+            'plate' => 'nullable|string',
+            'report' => 'nullable|string',
+            'service' => 'array',
+            'service.*' => 'string',
+        ]);
 
-        $report->save();
+        // dd($request);
+        $servicesToInsert = [];
+        foreach ($data['service'] as $service) {
+            $servicesToInsert[] = [
+                'license_plate_id' => $data['plate'],
+                'repair' => $service,
+                'created_at' => now(),
+                'updated_at' => now()
+            ];
+        };
+        if ($request['other'] !== null) {
+            array_push($servicesToInsert, ['license_plate_id' => $request->plate, 'repair' => $request->other, 'created_at' => now(), 'updated_at' => now()]);
+        }
+
+        // dd($servicesToInsert);
+        ReportRepair::insert($servicesToInsert);
 
         return redirect()->route('report.index');
     }

@@ -66,7 +66,7 @@ export default function Create({ auth, license_plates }) {
               className="outline outline-1 outline-blue-600 border border-blue-500 rounded"
               onChange={(e) => setData("plate", e.target.value)}
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 เลือกป้ายทะเบียน
               </option>
               {license_plates.map((plate, key) => (

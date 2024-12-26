@@ -2,6 +2,7 @@ import Button from "@/Components/ฺButton";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Link, useForm } from "@inertiajs/react";
 import React from "react";
+import Swal from "sweetalert2";
 
 function DashboardIndex({ auth, licensePlate }) {
   const { data, setData, post, delete: destroy } = useForm("licensePlate");
@@ -9,13 +10,35 @@ function DashboardIndex({ auth, licensePlate }) {
 
   licensePlate.sort((a, b) => a.number_plate.localeCompare(b.number_plate));
 
-  const RemoveReport = (id) => {
-    console.log(id);
+  const RemoveReport = (id, number_plate) => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+    });
 
-    destroy(route("report.destroy", { id: id }), {
-      onSuccess: () => {
-        console.log("Report deleted");
-      },
+    Swal.fire({
+      title: "ลบการแจ้งซ่อม",
+      text: `คุณต้องการลบการแจ้งซ่อมนี้ใช่ไหม ${number_plate}`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "ยืนยัน",
+      cancelButtonText: "ยกเลิก",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Toast.fire({
+          icon: "success",
+          title: "ลบการแจ้งซ่อมเรียบร้อยแล้ว",
+        });
+
+        destroy(route("report.destroy", { id: id }), {
+          onSuccess: () => {
+            console.log("Report deleted");
+          },
+        });
+      }
     });
   };
 
@@ -48,7 +71,9 @@ function DashboardIndex({ auth, licensePlate }) {
           <tbody className="text-center">
             {licensePlate.map((plate, plateKey) => (
               <tr key={plateKey}>
-                <td className="border p-5">{plate.number_plate}</td>
+                <td className="border p-5">
+                  {plate.number_plate} ({plate.driver.name})
+                </td>
                 <td className="border">
                   <ul>
                     {plate.report?.map((reports, key) => (
@@ -57,11 +82,15 @@ function DashboardIndex({ auth, licensePlate }) {
                   </ul>
                 </td>
                 <td className="border">
-                  <div className="flex justify-center flex-col md:flex-row">
-                    <Link className="bg-yellow-500 px-3 py-2">แก้ไข</Link>
+                  <div className="flex gap-2 justify-center flex-col md:flex-row">
+                    <Link className="bg-yellow-500 hover:bg-yellow-700 transition px-5 py-2 rounded">
+                      แก้ไข
+                    </Link>
                     <Button
-                      className="bg-red-500 px-3 py-2"
-                      onClick={(e) => RemoveReport(plate.id)}
+                      className="bg-red-500 hover:bg-red-700 text-white px-5 py-2"
+                      onClick={(e) =>
+                        RemoveReport(plate.id, plate.number_plate)
+                      }
                     >
                       ลบ
                     </Button>

@@ -14,7 +14,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $licensePlate = LicensePlate::has('report')->with('report')->get();
+        $licensePlate = LicensePlate::has('report')->with('report', 'driver')->get();
         return Inertia::render('Reports/Show', ['licensePlate' => $licensePlate]);
     }
 
@@ -39,7 +39,6 @@ class ReportController extends Controller
             'service.*' => 'string',
         ]);
 
-        // dd($request);
         $servicesToInsert = [];
         foreach ($data['service'] as $service) {
             $servicesToInsert[] = [
@@ -50,7 +49,15 @@ class ReportController extends Controller
             ];
         };
         if ($request['other'] !== null) {
-            array_push($servicesToInsert, ['license_plate_id' => $request->plate, 'repair' => $request->other, 'created_at' => now(), 'updated_at' => now()]);
+            array_push(
+                $servicesToInsert,
+                [
+                    'license_plate_id' => $request->plate,
+                    'repair' => $request->other,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]
+            );
         }
 
         // dd($servicesToInsert);

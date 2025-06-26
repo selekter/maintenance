@@ -83,7 +83,7 @@ function DashboardIndex({ auth, licensePlate }) {
                 </td>
                 <td className="border">
                   <div className="flex gap-2 justify-center flex-col md:flex-row">
-                    <Link className="bg-yellow-500 hover:bg-yellow-700 transition px-5 py-2 rounded">
+                    <Link href={route('report.edit', plate.id)} className="bg-yellow-500 hover:bg-yellow-700 transition px-5 py-2 rounded">
                       แก้ไข
                     </Link>
                     <Button

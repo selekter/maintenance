@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('license_plate_id');
             $table->string('repair');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

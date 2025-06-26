@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LicensePlate;
+use App\Models\ReportRepair;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -12,7 +14,8 @@ class MaintenanceHistoryController extends Controller
      */
     public function index()
     {
-        return Inertia::render('MaintenanceHistory/show');
+        $historyReport = ReportRepair::with('licensePlate')->where('status', 1)->orderBy('updated_at', 'DESC')->get();
+        return Inertia::render('MaintenanceHistory/show', ['historyReport' => $historyReport]);
     }
 
     /**

@@ -14,7 +14,11 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $licensePlate = LicensePlate::has('report')->with('report', 'driver')->get();
+        $licensePlate = LicensePlate::whereHas('report', function ($query) {
+            $query->where('status', 0);
+        })->with(['report' => function ($query) {
+            return $query->where('status', 0);
+        }, 'driver'])->get();
         return Inertia::render('Reports/Show', ['licensePlate' => $licensePlate]);
     }
 
@@ -77,18 +81,48 @@ class ReportController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(int $id)
     {
-        //
+        $licensePlate = LicensePlate::with(['report' => function ($query) {
+            $query->where('status', 0);
+        }])->find($id);
+        return Inertia::render('Reports/Update', ['licensePlate' => $licensePlate]);
+    }
+
+    public function updateStat(int $id)
+    {
+        try {
+            $report = ReportRepair::where('id', $id)->first();
+            if (!$report) {
+                dd('Error');
+            }
+            $report->status = 1;
+            $report->save();
+        } catch (\Exception $e) {
+            dd($e);
+        }
+
+        return redirect()->route('report.index');
+    }
+
+    public function editDestroy(int $id)
+    {
+        try {
+            $report = ReportRepair::where('id', $id);
+            if (!$report) {
+                dd('Error');
+            }
+
+            $report->delete();
+        } catch (\Exception $e) {
+            dd($e);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    public function update(Request $request, string $id) {}
 
     /**
      * Remove the specified resource from storage.

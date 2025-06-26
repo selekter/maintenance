@@ -1,18 +1,8 @@
+import Button from "@/Components/ฺButton";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 
-export default function MaintenanceHistoryShow({ auth }) {
-  const MaintenaceHistory = [
-    {
-      date: "2024-12-18",
-      licensePlate: "70-7210",
-      maintenance: "เปลี่ยนบูตหัวเก๋ง (ซ้าย-ขวา)",
-    },
-    {
-      date: "2024-12-21",
-      licensePlate: "70-7209",
-      maintenance: "เปลี่ยนบูตหัวเก๋ง (ขวา)",
-    },
-  ];
+export default function MaintenanceHistoryShow({ auth, historyReport }) {
+  // console.log(historyReport);
 
   // ฟังก์ชันสำหรับแปลงวันที่เป็นภาษาไทย
   const formatThaiDate = (convertDate) => {
@@ -25,11 +15,42 @@ export default function MaintenanceHistoryShow({ auth }) {
       weekday: "long",
     });
     return thaiDate;
+
+
+  };
+
+  const formatDate = (getDate) => {
+    const date = new Date(getDate);
+
+    const convertDate = date.toLocaleDateString("th-TH", {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+    });
+    return convertDate;
   };
 
   return (
     <Authenticated user={auth.user} header="ประวัติซ่อมบำรุง">
       <div className="space-y-2">
+        <div className="gap-5">
+          <h2>ค้นหา</h2>
+          <div className="flex gap-5 items-center">
+            <div className="flex gap-3 items-center">
+              <label htmlFor="licensePlate">ป้ายทะเบียน</label>
+              <input type="text" id="licensePlate" />
+            </div>
+            <div className="flex gap-5 items-center">
+              <label htmlFor="">ซ่อมบำรุง</label>
+              <input type="text" name="" id="" />
+            </div>
+            <div className="flex gap-5 items-center">
+              <Button className="bg-blue-400">
+                ค้นหา
+              </Button>
+            </div>
+          </div>
+        </div>
         <table className="bg-white shadow">
           <thead className="bg-blue-400">
             <tr>
@@ -39,11 +60,18 @@ export default function MaintenanceHistoryShow({ auth }) {
             </tr>
           </thead>
           <tbody>
-            {MaintenaceHistory.map((mainten, index) => (
+            {historyReport.map((mainten, index) => (
               <tr key={index}>
-                <td>{formatThaiDate(mainten.date)}</td>
-                <td>{mainten.licensePlate}</td>
-                <td>{mainten.maintenance}</td>
+                <td>
+                  <div className="group cursor-pointer flex items-center text-center justify-center relative">
+                    {formatThaiDate(mainten.updated_at)}
+                    <small className="transition duration-1000 hidden group-hover:block absolute -top-5 p-1 text-xs rounded bg-green-200 shadow-xl">
+                      {formatDate(mainten.updated_at)}
+                    </small>
+                  </div>
+                </td>
+                <td>{mainten.license_plate.number_plate}</td>
+                <td>{mainten.repair}</td>
               </tr>
             ))}
           </tbody>

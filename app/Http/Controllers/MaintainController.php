@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LicensePlate;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,7 +15,11 @@ class MaintainController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $reports = LicensePlate::has('report')->with('report')->get();
+        $reports = LicensePlate::whereHas('report', function (Builder $query) {
+            $query->where('status', 0);
+        })->with(['report' => function ($query) {
+            $query->where('status', 0);
+        }, 'driver'])->get();
         return Inertia::render('Maintain/Index', ['user' => $user, 'reports' => $reports]);
     }
 

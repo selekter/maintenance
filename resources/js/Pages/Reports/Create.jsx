@@ -81,7 +81,7 @@ export default function Create({ auth, license_plates }) {
             <input
               type="checkbox"
               name="engine_oil"
-              id=""
+              id="engine_oil"
               value="เปลี่ยนน้ำมันเครื่อง"
               onChange={handleCheckbox}
             />
@@ -91,6 +91,7 @@ export default function Create({ auth, license_plates }) {
             <input
               type="checkbox"
               name="gear_oil"
+              id="gear_oil"
               value="เปลี่ยนน้ำมันเกียร์"
               onChange={handleCheckbox}
             />
@@ -100,6 +101,7 @@ export default function Create({ auth, license_plates }) {
             <input
               type="checkbox"
               name="differential_oil"
+              id="differential_oil"
               value="เปลี่ยนน้ำมันเฟืองท้าย"
               onChange={handleCheckbox}
             />
@@ -109,6 +111,7 @@ export default function Create({ auth, license_plates }) {
             <input
               type="checkbox"
               name="other"
+              id="other"
               onChange={(e) => {
                 open_other();
               }}
@@ -118,10 +121,11 @@ export default function Create({ auth, license_plates }) {
 
           {option && (
             <div className="mt-5">
-              <label htmlFor="other">แจ้งซ่อม</label>
+              <label htmlFor="inputOther">แจ้งซ่อม</label>
               <input
                 type="text"
-                id="other"
+                id="inputOther"
+                name="inputOther"
                 value={data.other}
                 onChange={(e) => setData("other", e.target.value)}
                 className="rounded w-full border border-blue-500"

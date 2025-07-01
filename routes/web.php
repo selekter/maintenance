@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/maintenance-history', [maintenanceHistoryController::class, 'index'])->name('mainHistory.show');
+    Route::get('/maintenance-history/search/{name}', [maintenanceHistoryController::class, 'search'])->name('mainHistory.search');
 });
 
 Route::middleware('auth')->group(function () {

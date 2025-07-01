@@ -1,3 +1,4 @@
+import Button from "@/Components/ฺButton";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import React from "react";
 
@@ -10,6 +11,9 @@ function show({ auth, drivers }) {
   return (
     <Authenticated user={auth.user} header="พนักงานขับรถ">
       <div className="space-y-2">
+        <div className="flex justify-end">
+          <Button className="bg-blue-400">เพิ่มพนักงาน</Button>
+        </div>
         <table className="table-auto w-full bg-white shadow-lg">
           <thead className="bg-blue-500 text-xl">
             <tr>

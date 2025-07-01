@@ -1,10 +1,11 @@
 import Button from "@/Components/ฺButton";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
+import { Link } from "@inertiajs/react";
 
 export default function MaintenanceHistoryShow({ auth, historyReport }) {
-  // console.log(historyReport);
+  console.log(historyReport);
 
-  // ฟังก์ชันสำหรับแปลงวันที่เป็นภาษาไทย
+  //* ฟังก์ชันสำหรับแปลงวันที่เป็นภาษาไทย
   const formatThaiDate = (convertDate) => {
     const date = new Date(convertDate);
 
@@ -15,10 +16,9 @@ export default function MaintenanceHistoryShow({ auth, historyReport }) {
       weekday: "long",
     });
     return thaiDate;
-
-
   };
 
+  //* ฟังก์ชั่นสำหรับแปลงเวลาเป็นตัวเลข
   const formatDate = (getDate) => {
     const date = new Date(getDate);
 
@@ -41,13 +41,11 @@ export default function MaintenanceHistoryShow({ auth, historyReport }) {
               <input type="text" id="licensePlate" />
             </div>
             <div className="flex gap-5 items-center">
-              <label htmlFor="">ซ่อมบำรุง</label>
-              <input type="text" name="" id="" />
+              <label htmlFor="repair">ซ่อมบำรุง</label>
+              <input type="text" name="" id="repair" />
             </div>
             <div className="flex gap-5 items-center">
-              <Button className="bg-blue-400">
-                ค้นหา
-              </Button>
+              <Button className="bg-blue-400">ค้นหา</Button>
             </div>
           </div>
         </div>
@@ -60,7 +58,7 @@ export default function MaintenanceHistoryShow({ auth, historyReport }) {
             </tr>
           </thead>
           <tbody>
-            {historyReport.map((mainten, index) => (
+            {historyReport.data.map((mainten, index) => (
               <tr key={index}>
                 <td>
                   <div className="group cursor-pointer flex items-center text-center justify-center relative">
@@ -76,6 +74,19 @@ export default function MaintenanceHistoryShow({ auth, historyReport }) {
             ))}
           </tbody>
         </table>
+        <div className="flex justify-center gap-3">
+        {historyReport.links.map((pagination, id) => (
+          pagination.active ? (
+            <Link key={id} className="bg-green-400 px-3 py-1">{pagination.label}</Link>
+          ):(
+            pagination.url ? (
+            <Link key={id} className="border border-neutral-300 px-3 py-1 bg-neutral-200" href={pagination.url}>{pagination.label}</Link>
+            ) : (
+              <span key={id} className="hidden" >{pagination.label}</span>
+            )
+          )
+        ))}
+        </div>
       </div>
     </Authenticated>
   );

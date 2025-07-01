@@ -14,7 +14,7 @@ class MaintenanceHistoryController extends Controller
      */
     public function index()
     {
-        $historyReport = ReportRepair::with('licensePlate')->where('status', 1)->orderBy('updated_at', 'DESC')->get();
+        $historyReport = ReportRepair::with('licensePlate')->where('status', 1)->orderBy('updated_at', 'DESC')->paginate();
         return Inertia::render('MaintenanceHistory/show', ['historyReport' => $historyReport]);
     }
 
@@ -32,6 +32,11 @@ class MaintenanceHistoryController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    public function search(string $name)
+    {
+        return Inertia::render('MaintenanceHistory/Search', ['search'=>$name]);
     }
 
     /**

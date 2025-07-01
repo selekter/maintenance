@@ -16,10 +16,6 @@ export default function Authenticated({ user, header, children }) {
       text: "พนังงานขับรถ",
     },
     {
-      href: 'oil.index',
-      text: 'เปลี่ยนน้ำมัน'
-    },
-    {
       href: 'mainHistory.show',
       text: 'ประวัติซ่อมบำรุง'
     }

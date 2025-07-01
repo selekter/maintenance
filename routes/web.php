@@ -48,11 +48,6 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{id}', [ReportController::class, 'destroy'])->name('report.destroy');
     });
 
-    Route::prefix('oil')->group(function () {
-        Route::get('/', [OilController::class, 'index'])->name('oil.index');
-        Route::get('/change-oil', [OilController::class, 'create'])->name('oil.create');
-    });
-
     Route::get('/maintenance-history', [maintenanceHistoryController::class, 'index'])->name('mainHistory.show');
     Route::get('/maintenance-history/search/{name}', [maintenanceHistoryController::class, 'search'])->name('mainHistory.search');
 });

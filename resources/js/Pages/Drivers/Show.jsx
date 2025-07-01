@@ -2,10 +2,10 @@ import Button from "@/Components/ฺButton";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import React from "react";
 
-function show({ auth, drivers }) {
-  console.log(drivers);
-  drivers.sort((a, b) =>
-    a.license_plate.number_plate.localeCompare(b.license_plate.number_plate)
+function show({ auth, licensePlates }) {
+  console.log(licensePlates);
+  licensePlates.sort((a, b) =>
+    a.number_plate.localeCompare(b.number_plate)
   );
 
   return (
@@ -22,12 +22,12 @@ function show({ auth, drivers }) {
             </tr>
           </thead>
           <tbody>
-            {drivers.map((driver) => (
-              <tr key={driver.id} className="text-center">
+            {licensePlates.map((plate) => (
+              <tr key={plate.id} className="text-center">
                 <td className="border p-5">
-                  {driver.license_plate?.number_plate}
+                  {plate.number_plate}
                 </td>
-                <td className="border p-5">{driver.name}</td>
+                <td className="border p-5">{plate.driver.name}</td>
               </tr>
             ))}
           </tbody>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Driver;
+use App\Models\LicensePlate;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -10,7 +10,7 @@ class DriverController extends Controller
 {
     public function index()
     {
-        $drivers = Driver::with('licensePlate')->get();
-        return Inertia::render('Drivers/Show', ['drivers' => $drivers]);
+        $licensePlates = LicensePlate::with('driver')->get();
+        return Inertia::render('Drivers/Show', ['licensePlates' => $licensePlates]);
     }
 }

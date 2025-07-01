@@ -63,7 +63,7 @@ export default function Create({ auth, license_plates }) {
               id="plate"
               defaultValue=""
               required
-              className="outline outline-1 outline-blue-600 border border-blue-500 rounded"
+              className="outline outline-1 outline-blue-600 border border-blue-500 rounded hover:cursor-pointer"
               onChange={(e) => setData("plate", e.target.value)}
             >
               <option value="" disabled>
@@ -80,43 +80,47 @@ export default function Create({ auth, license_plates }) {
           <div className="flex gap-2 items-center">
             <input
               type="checkbox"
+              className="hover:cursor-pointer"
               name="engine_oil"
               id="engine_oil"
               value="เปลี่ยนน้ำมันเครื่อง"
               onChange={handleCheckbox}
             />
-            <label htmlFor="engine_oil">เปลี่ยนน้ำมันเครื่อง</label>
+            <label htmlFor="engine_oil" className="hover:cursor-pointer">เปลี่ยนน้ำมันเครื่อง</label>
           </div>
           <div className="flex gap-2 items-center">
             <input
               type="checkbox"
+              className="hover:cursor-pointer"
               name="gear_oil"
               id="gear_oil"
               value="เปลี่ยนน้ำมันเกียร์"
               onChange={handleCheckbox}
             />
-            <label htmlFor="gear_oil">เปลี่ยนน้ำมันเกียร์</label>
+            <label htmlFor="gear_oil" className="hover:cursor-pointer">เปลี่ยนน้ำมันเกียร์</label>
           </div>
           <div className="flex gap-2 items-center">
             <input
               type="checkbox"
+              className="hover:cursor-pointer"
               name="differential_oil"
               id="differential_oil"
               value="เปลี่ยนน้ำมันเฟืองท้าย"
               onChange={handleCheckbox}
             />
-            <label htmlFor="differential_oil">เปลี่ยนน้ำมันเฟืองท้าย</label>
+            <label htmlFor="differential_oil" className="hover:cursor-pointer">เปลี่ยนน้ำมันเฟืองท้าย</label>
           </div>
           <div className="flex gap-2 items-center">
             <input
               type="checkbox"
+              className="hover:cursor-pointer"
               name="other"
               id="other"
               onChange={(e) => {
                 open_other();
               }}
             />
-            <label htmlFor="other">อื่นๆ</label>
+            <label htmlFor="other" className="hover:cursor-pointer">อื่นๆ</label>
           </div>
 
           {option && (

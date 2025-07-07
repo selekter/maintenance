@@ -71,7 +71,7 @@ export default function Create({ auth, license_plates }) {
               </option>
               {license_plates.map((plate, key) => (
                 <option key={key} value={plate.id}>
-                  {plate.number_plate}
+                  {plate.number_plate} ({plate.driver.name})
                 </option>
               ))}
             </select>

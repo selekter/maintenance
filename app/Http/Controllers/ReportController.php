@@ -27,7 +27,7 @@ class ReportController extends Controller
      */
     public function create()
     {
-        $licensePlate = LicensePlate::get();
+        $licensePlate = LicensePlate::with('driver')->get();
         return Inertia::render('Reports/Create', ['license_plates' => $licensePlate]);
     }
 

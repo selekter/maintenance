@@ -101,8 +101,6 @@ class ReportController extends Controller
         } catch (\Exception $e) {
             dd($e);
         }
-
-        return redirect()->route('report.index');
     }
 
     public function editDestroy(int $id)

@@ -1,4 +1,4 @@
-import Button from "@/Components/ฺButton";
+import Button from "@/Components/Button";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import React from "react";
 

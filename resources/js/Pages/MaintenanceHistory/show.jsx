@@ -1,4 +1,4 @@
-import Button from "@/Components/ฺButton";
+import Button from "@/Components/Button";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Link } from "@inertiajs/react";
 
@@ -86,6 +86,7 @@ export default function MaintenanceHistoryShow({ auth, historyReport }) {
             )
           )
         ))}
+
         </div>
       </div>
     </Authenticated>

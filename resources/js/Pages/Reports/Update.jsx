@@ -1,7 +1,7 @@
-import Button from '@/Components/ฺButton';
+import Button from '@/Components/Button';
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { useForm } from '@inertiajs/react';
-import React from 'react'
+import React, { useEffect } from 'react'
 import Swal from 'sweetalert2';
 
 function Update({ auth, licensePlate }) {
@@ -39,6 +39,12 @@ function Update({ auth, licensePlate }) {
 			}
 		});
 	}
+
+	useEffect(()=> {
+		if (!licensePlate || !licensePlate.report || licensePlate.report.length === 0) {
+			window.location.href = '/report';
+		}
+	})
 
 	const RemoveReport = (id, repair) => {
 		const Toast = Swal.mixin({
@@ -78,7 +84,7 @@ function Update({ auth, licensePlate }) {
 				<table className='table table-auto'>
 					<thead>
 						<tr>
-							<th colSpan={2}>รายการแจ้งซ่อม</th>
+							<th colSpan={2}>รายการแจ้งซ่อม ( {licensePlate.number_plate} )</th>
 						</tr>
 					</thead>
 					<tbody>

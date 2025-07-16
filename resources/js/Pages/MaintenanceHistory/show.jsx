@@ -69,23 +69,28 @@ export default function MaintenanceHistoryShow({ auth, historyReport }) {
                   </div>
                 </td>
                 <td>{mainten.license_plate.number_plate}</td>
-                <td>{mainten.repair}</td>
+                <td>
+                  <p>{mainten.repair}</p>
+                  {mainten.description && (
+                    <p>รายละเอียด : {mainten.description}</p>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
         <div className="flex justify-center gap-1">
-        {historyReport.links.map((pagination, id) => (
-          pagination.active ? (
-            <Link key={id} className="bg-green-500 px-3 py-1 rounded-md" dangerouslySetInnerHTML={{__html:pagination.label}} />
-          ):(
-            pagination.url ? (
-            <Link key={id} className="border border-neutral-300 px-3 py-1 bg-neutral-200 rounded-md" href={pagination.url} dangerouslySetInnerHTML={{__html:pagination.label}} />
+          {historyReport.links.map((pagination, id) => (
+            pagination.active ? (
+              <Link key={id} className="bg-green-500 px-3 py-1 rounded-md" dangerouslySetInnerHTML={{ __html: pagination.label }} />
             ) : (
-              <span key={id} className="hidden" >{pagination.label}</span>
+              pagination.url ? (
+                <Link key={id} className="border border-neutral-300 px-3 py-1 bg-neutral-200 rounded-md" href={pagination.url} dangerouslySetInnerHTML={{ __html: pagination.label }} />
+              ) : (
+                <span key={id} className="hidden" >{pagination.label}</span>
+              )
             )
-          )
-        ))}
+          ))}
 
         </div>
       </div>

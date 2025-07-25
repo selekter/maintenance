@@ -1,9 +1,14 @@
 import Button from "@/Components/Button";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Link } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
 
 export default function MaintenanceHistoryShow({ auth, historyReport }) {
   console.log(historyReport);
+
+  const { data, setData, get } = useForm({
+    maintain: "",
+    licensePlate: "",
+  });
 
   //* ฟังก์ชันสำหรับแปลงวันที่เป็นภาษาไทย
   const formatThaiDate = (convertDate) => {
@@ -30,22 +35,46 @@ export default function MaintenanceHistoryShow({ auth, historyReport }) {
     return convertDate;
   };
 
+  const handleSumbitSearch = (e) => {
+    e.preventDefault();
+
+    get(route('mainHistory.show'));
+  }
+
   return (
     <Authenticated user={auth.user} header="ประวัติซ่อมบำรุง">
       <div className="space-y-2">
         <div className="gap-5">
-          <h2>ค้นหา</h2>
-          <div className="flex gap-5 items-center">
+          <h2 className="font-bold text-xl">ค้นหา</h2>
+          <div className="flex flex-col md:flex-row gap-3 md:items-center">
             <div className="flex gap-3 items-center">
               <label htmlFor="licensePlate">ป้ายทะเบียน</label>
-              <input type="text" id="licensePlate" />
+              <input
+                className="rounded border border-blue-500 w-full md:w-auto"
+                value={data.licensePlate}
+                onChange={(e) => setData("licensePlate", e.target.value)}
+                type="text"
+                id="licensePlate"
+              />
             </div>
             <div className="flex gap-5 items-center">
               <label htmlFor="repair">ซ่อมบำรุง</label>
-              <input type="text" name="" id="repair" />
+              <input
+                className="rounded border border-blue-500 w-full md:w-auto"
+                value={data.maintain}
+                onChange={(e) => setData("maintain", e.target.value)}
+                type="text"
+                name=""
+                id="repair"
+              />
             </div>
             <div className="flex gap-5 items-center">
-              <Button className="bg-blue-400">ค้นหา</Button>
+              <Button
+                className="bg-blue-300 transition hover:bg-blue-400 hover:shadow-blue-600 hover:shadow-md"
+                onClick={handleSumbitSearch}
+              >
+                ค้นหา
+              </Button>
             </div>
           </div>
         </div>
@@ -75,18 +104,26 @@ export default function MaintenanceHistoryShow({ auth, historyReport }) {
           </tbody>
         </table>
         <div className="flex justify-center gap-1">
-        {historyReport.links.map((pagination, id) => (
-          pagination.active ? (
-            <Link key={id} className="bg-green-500 px-3 py-1 rounded-md" dangerouslySetInnerHTML={{__html:pagination.label}} />
-          ):(
-            pagination.url ? (
-            <Link key={id} className="border border-neutral-300 px-3 py-1 bg-neutral-200 rounded-md" href={pagination.url} dangerouslySetInnerHTML={{__html:pagination.label}} />
+          {historyReport.links.map((pagination, id) =>
+            pagination.active ? (
+              <Link
+                key={id}
+                className="bg-green-500 px-3 py-1 rounded-md"
+                dangerouslySetInnerHTML={{ __html: pagination.label }}
+              />
+            ) : pagination.url ? (
+              <Link
+                key={id}
+                className="border border-neutral-300 px-3 py-1 bg-neutral-200 rounded-md"
+                href={pagination.url}
+                dangerouslySetInnerHTML={{ __html: pagination.label }}
+              />
             ) : (
-              <span key={id} className="hidden" >{pagination.label}</span>
+              <span key={id} className="hidden">
+                {pagination.label}
+              </span>
             )
-          )
-        ))}
-
+          )}
         </div>
       </div>
     </Authenticated>

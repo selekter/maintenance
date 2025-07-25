@@ -10,6 +10,7 @@ function DashboardIndex({ auth, licensePlate }) {
 
   licensePlate.sort((a, b) => a.number_plate.localeCompare(b.number_plate));
 
+  // * ลบ Report
   const RemoveReport = (id, number_plate) => {
     const Toast = Swal.mixin({
       toast: true,

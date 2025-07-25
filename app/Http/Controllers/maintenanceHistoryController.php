@@ -12,10 +12,26 @@ class MaintenanceHistoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $historyReport = ReportRepair::with('licensePlate')->where('status', 1)->orderBy('updated_at', 'DESC')->paginate();
-        return Inertia::render('MaintenanceHistory/show', ['historyReport' => $historyReport]);
+
+        $query = $request->query();
+
+        $dataRepair = ReportRepair::with('licensePlate')->where('status', 1);
+
+        if (!empty($query['maintain'])) {
+            $dataRepair->where('repair', 'like', '%' . $query['maintain'] . '%');
+        }
+
+        if (!empty($query['licensePlate'])) {
+            $dataRepair->whereHas('licensePlate', function($q) use($query) {
+                $q->where('number_plate', 'like', '%' . $query['licensePlate'] . '%');
+            });
+        }
+
+        $result = $dataRepair->orderBy('updated_at', 'DESC')->paginate();
+
+        return Inertia::render('MaintenanceHistory/show', ['historyReport' => $result]);
     }
 
     /**
@@ -32,11 +48,6 @@ class MaintenanceHistoryController extends Controller
     public function store(Request $request)
     {
         //
-    }
-
-    public function search(string $name)
-    {
-        return Inertia::render('MaintenanceHistory/Search', ['search'=>$name]);
     }
 
     /**

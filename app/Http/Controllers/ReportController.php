@@ -85,7 +85,7 @@ class ReportController extends Controller
     {
         $licensePlate = LicensePlate::with(['report' => function ($query) {
             $query->where('status', 0);
-        }])->find($id);
+        }])->findOrFail($id);
         return Inertia::render('Reports/Update', ['licensePlate' => $licensePlate]);
     }
 

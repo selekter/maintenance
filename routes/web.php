@@ -45,11 +45,13 @@ Route::middleware('auth')->group(function () {
         Route::put('/edit/{id}', [ReportController::class, 'updateStat'])->name('report.updatestat');
         Route::delete('/edit/{id}', [ReportController::class, 'editDestroy'])->name('reportedit.destroy');
         Route::get('/drivers', [DriverController::class, 'index'])->name('driver.show');
-        Route::delete('/{id}', [ReportController::class, 'destroy'])->name('report.destroy');
+        Route::delete('/delete/{id}', [ReportController::class, 'destroy'])->name('report.destroy');
     });
 
-    Route::get('/maintenance-history', [maintenanceHistoryController::class, 'index'])->name('mainHistory.show');
-    Route::get('/maintenance-history/search/{name}', [maintenanceHistoryController::class, 'search'])->name('mainHistory.search');
+    Route::prefix('maintenance-history')->group(function() {
+        Route::get('/', [maintenanceHistoryController::class, 'index'])->name('mainHistory.show');
+        Route::get('/search', [maintenanceHistoryController::class, 'search'])->name('mainHistory.search');
+    });
 });
 
 Route::middleware('auth')->group(function () {

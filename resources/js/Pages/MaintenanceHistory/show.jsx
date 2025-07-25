@@ -98,7 +98,12 @@ export default function MaintenanceHistoryShow({ auth, historyReport }) {
                   </div>
                 </td>
                 <td>{mainten.license_plate.number_plate}</td>
-                <td>{mainten.repair}</td>
+                <td>
+                  <p>{mainten.repair}</p>
+                  {mainten.description && (
+                    <p>รายละเอียด : {mainten.description}</p>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>

@@ -89,14 +89,16 @@ class ReportController extends Controller
         return Inertia::render('Reports/Update', ['licensePlate' => $licensePlate]);
     }
 
-    public function updateStat(int $id)
+    public function updateStat(Request $request, int $id)
     {
+        $query = $request->query();
         try {
-            $report = ReportRepair::where('id', $id)->first();
-            if (!$report) {
-                dd('Error');
-            }
+            $report = ReportRepair::findOrFail($id);
             $report->status = 1;
+
+            if (!empty($query['description'])) {
+                $report->description = $query['description'];
+            }
             $report->save();
         } catch (\Exception $e) {
             dd($e);

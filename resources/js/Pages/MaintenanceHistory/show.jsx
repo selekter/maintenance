@@ -3,7 +3,7 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Link, useForm } from "@inertiajs/react";
 
 export default function MaintenanceHistoryShow({ auth, historyReport }) {
-  console.log(historyReport);
+  // console.log(historyReport);
 
   const { data, setData, get } = useForm({
     maintain: "",
@@ -101,7 +101,7 @@ export default function MaintenanceHistoryShow({ auth, historyReport }) {
                 <td>
                   <p>{mainten.repair}</p>
                   {mainten.description && (
-                    <p>รายละเอียด : {mainten.description}</p>
+                    <p><span className="text-red-500 font-bold">รายละเอียด : </span>{mainten.description}</p>
                   )}
                 </td>
               </tr>
